@@ -1,0 +1,1 @@
+pip install transformers==4.19.0 datasets==1.16.1 accelerate>=0.16.0 datasketch==1.5.7 dpu_utils

@@ -1,0 +1,41 @@
+name: codeparrot-pretraining
+debug: true
+environment:
+  environment_variables:
+    - https_proxy=
+    - http_proxy=
+    - TRANSFORMERS_CACHE=/nvmefs1/anoop/cache/hf
+    - HF_MODULES_CACHE=/nvmefs1/anoop/cache/hf
+    - HF_HOME=/nvmefs1/anoop/cache/hf
+    - HUGGINGFACE_HUB_CACHE=/nvmefs1/anoop/cache/hf
+    - HF_DATASETS_CACHE=/nvmefs1/anoop/cache/hf
+    - NCCL_DEBUG=WARN
+  image:
+    cuda: determinedai/environments:cuda-11.8-pytorch-2.0-gpu-mpi-0.24.0
+resources:
+  slots_per_trial: 2
+  resource_pool: A100
+searcher:
+  name: single
+  max_length: 100 #max_train_steps
+  metric: loss/eval
+hyperparameters:
+  training_arguments:
+    learning_rate: 1e-5
+    num_warmup_steps: 20
+entrypoint: >-
+  python -m determined.launch.torch_distributed
+  python codeparrot_training_mlde.py
+  --pretrained_model_name_or_path codeparrot/codeparrot-small
+  --dataset_name_train
+  /nvmefs1/anoop/data/codeparrot-clean-train
+  --dataset_name_valid
+  /nvmefs1/anoop/data/codeparrot-clean-valid
+  --train_batch_size 12
+  --valid_batch_size 12 
+  --learning_rate 5e-4
+  --num_warmup_steps 10
+  --gradient_accumulation 1 
+  --gradient_checkpointing False
+  --save_checkpoint_steps 5
+max_restarts: 0
