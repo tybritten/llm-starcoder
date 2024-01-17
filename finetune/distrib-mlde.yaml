@@ -18,11 +18,6 @@ environment:
   environment_variables:
     - https_proxy=
     - http_proxy=
-    - TRANSFORMERS_CACHE=/nvmefs1/anoop/cache/hf
-    - HF_MODULES_CACHE=/nvmefs1/anoop/cache/hf
-    - HF_HOME=/nvmefs1/anoop/cache/hf
-    - HUGGINGFACE_HUB_CACHE=/nvmefs1/anoop/cache/hf
-    - HF_DATASETS_CACHE=/nvmefs1/anoop/cache/hf
     - NCCL_DEBUG=WARN
   image:
     cuda: anoophpe/llm-codegen-ft:1.0
