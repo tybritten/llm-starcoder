@@ -4,13 +4,13 @@ project: starcoder
 debug: true
 data:
   pachyderm:
-    branch:
-    host:
+    branch: 
+    host: 
     port: 
     previous_commit: 
     project: 
-    repo:
-    token: 
+    repo: 
+    token: null
 bind_mounts:
   - container_path: /nvmefs1/anoop
     host_path: /nvmefs1/anoop
@@ -40,9 +40,9 @@ hyperparameters:
 entrypoint: >-
   python -m determined.launch.torch_distributed
   python finetune-mlde.py
-  --model_path "bigcode/starcoder"
+  --model_path "/tmp/model"
   --dataset_name
-  "ArmelR/stack-exchange-instruction"
+  "/tmp"
   --split
   "train"
   --size_valid_set
