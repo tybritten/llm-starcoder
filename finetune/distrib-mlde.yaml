@@ -1,5 +1,19 @@
 name: starcoder-ft
+workspace: PDK Demos
+project: starcoder
 debug: true
+data:
+  pachyderm:
+    branch:
+    host:
+    port: 
+    previous_commit: 
+    project: 
+    repo:
+    token: 
+bind_mounts:
+  - container_path: /nvmefs1/anoop
+    host_path: /nvmefs1/anoop
 environment:
   environment_variables:
     - https_proxy=
