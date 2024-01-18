@@ -14,6 +14,11 @@ def create_client():
         password=os.getenv("DET_PASSWORD"),
     )
 
+def find_file(start_dir='.',file='config.json'):
+    for root, dirs, files in os.walk(start_dir):
+        if file in files:
+            return os.path.abspath(root)
+    return None
 
 def merge_peft_adapters(peft_chk_path, output_model_merged_path, model):
 
@@ -52,13 +57,13 @@ def main():
         "--experiment-num",
         type=int,
         help="Experiment ID",
-        required=True,
+        required=False,
     )
     parser.add_argument(
         "--input_path_peft",
         type=str,
         help="Local location of peft checkpoint",
-        required=True,
+        required=False,
     )    
     parser.add_argument(
         "--model",
@@ -75,7 +80,7 @@ def main():
     args = parser.parse_args()
     client = create_client()
     if args.input_path_peft is not None:
-        chk_path = args.input_path_peft
+        chk_path = find_file(args.input_path_peft, 'adapter_config.json')
     else:
         chk_path = download_checkpoint(client, args.experiment_num)
     if chk_path is None:
