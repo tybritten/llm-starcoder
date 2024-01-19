@@ -11,23 +11,18 @@ data:
     project: 
     repo: 
     token: null
-bind_mounts:
-  - container_path: /nvmefs1/anoop
-    host_path: /nvmefs1/anoop
 environment:
   environment_variables:
-    - https_proxy=
-    - http_proxy=
     - NCCL_DEBUG=WARN
   image:
-    cuda: anoophpe/llm-codegen-ft:1.0
+    cuda: vmtyler/llm-codegen-ft:1.0
 resources:
-  slots_per_trial: 1
+  slots_per_trial: 4
   resource_pool: A100
 searcher:
   name: single
   max_length:
-    batches: 10
+    batches: 1000
   metric: eval_loss
 hyperparameters:
   training_arguments:
@@ -46,7 +41,7 @@ entrypoint: >-
   --seq_length
   "2048"
   --max_steps
-  "10"
+  "1000"
   --batch_size
   "1"
   --input_column_name
