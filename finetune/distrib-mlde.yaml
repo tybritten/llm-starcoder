@@ -19,12 +19,12 @@ environment:
   image:
     cuda: vmtyler/llm-codegen-ft:1.0
 resources:
-  slots_per_trial: 8
+  slots_per_trial: 16
   resource_pool: A100
 searcher:
   name: single
   max_length:
-    batches: 1000
+    batches: 500
   metric: eval_loss
 hyperparameters:
   training_arguments:
@@ -43,7 +43,7 @@ entrypoint: >-
   --seq_length
   "2048"
   --max_steps
-  "1000"
+  "500"
   --batch_size
   "1"
   --input_column_name
