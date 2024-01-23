@@ -24,7 +24,7 @@ resources:
 searcher:
   name: single
   max_length:
-    batches: 500
+    batches: 400
   metric: eval_loss
 hyperparameters:
   training_arguments:
@@ -43,7 +43,7 @@ entrypoint: >-
   --seq_length
   "2048"
   --max_steps
-  "500"
+  "400"
   --batch_size
   "1"
   --input_column_name
@@ -63,7 +63,7 @@ entrypoint: >-
   --log_freq
   20
   --save_freq
-  20
+  50
   --eval_freq
-  20
+  50
 max_restarts: 3
