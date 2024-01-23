@@ -40,7 +40,7 @@ class SavePeftModelCallback(TrainerCallback):
         **kwargs,
     ):
         checkpoint_folder = os.path.join(args.output_dir)
-
+        kwargs["model"].config.to_json_file(f"{checkpoint_folder}/config.json")
         kwargs["model"].save_pretrained(checkpoint_folder)
 
         pytorch_model_path = os.path.join(checkpoint_folder, "pytorch_model.bin")
